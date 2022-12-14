@@ -1,0 +1,87 @@
+/api/minions routes
+    GET /api/minions
+      ✓ returns an array
+      ✓ returns an array of all minions
+    GET /minions/:minionId
+      1) returns a single minion object
+      2) returns a full minion object
+      3) returned minion has the correct id
+      ✓ called with a non-numeric ID returns a 404 error
+      ✓ called with an invalid ID returns a 404 error
+    PUT /api/minions/:minionId
+      4) updates the correct minion and returns it
+      5) updates the correct minion and persists to the database
+      ✓ called with a non-numeric ID returns a 404 error
+      ✓ called with an invalid ID returns a 404 error
+      ✓ called with an invalid ID does not change the database array
+    POST /api/minions
+      6) should add a new minion if all supplied information is correct
+    DELETE /api/minions
+      7) deletes the correct minion by id
+      ✓ called with a non-numeric ID returns a 404 error
+      ✓ called with an invalid ID returns a 404 error
+
+  /api/ideas routes
+    GET /api/ideas
+      8) returns an array
+      9) returns an array of all ideas
+    GET /ideas/:ideaId
+      10) returns a single idea object
+      11) returns a full idea object with correct properties
+      12) returned idea has the correct id
+      ✓ called with a non-numeric ID returns a 404 error
+      ✓ called with an invalid ID returns a 404 error
+    PUT /api/ideas/:ideaId
+      13) updates the correct idea and returns it
+      14) updates the correct idea and persists to the database
+      ✓ called with a non-numeric ID returns a 404 error
+      ✓ called with an invalid ID returns a 404 error
+      ✓ called with an invalid ID does not change the database array
+    POST /api/ideas
+      15) should add a new idea if all supplied information is correct
+    DELETE /api/ideas
+      16) deletes the correct minion by id
+      ✓ called with a non-numeric ID returns a 404 error
+      ✓ called with an invalid ID returns a 404 error
+
+  checkMillionDollarIdea middleware
+    17) is a function takes three arguments
+    18) sends a 400 error if the total yield is less than one million dollars
+    19) calls next for ideas that will yield at least one million dollars
+    20) sends a 400 error if numWeeks or weeklyRevenue is not supplied
+    21) sends a 400 error if numWeeks or weeklyRevenue is an invalid string
+    22) is used in a POST /api/ideas route to reject insufficiently profitable ideas
+
+  /api/meetings routes
+    GET /api/meetings
+      23) returns an array
+      24) returns an array of all meetings
+    POST /api/meetings
+      25) should create a new meetings and return it
+      26) should persist the created meeting to the database
+    DELETE /api/meetings route
+      27) deletes all meetings
+
+  BONUS: /api/minions/:minionId/work routes
+    GET /api/minions/:minionId/work
+      - returns an array
+      - returns an array of all all work for the specified minion
+      - called with a non-numeric minion ID returns a 404 error
+      - called with an invalid ID minion returns a 404 error
+    PUT /api/minions/:minionId/work/:workId
+      - updates the correct work and returns it
+      - updates the correct work item and persists to the database
+      - called with a non-numeric minion ID returns a 404 error
+      - called with an invalid minion ID returns a 404 error
+      - called with a non-numeric work ID returns a 404 error
+      - called with an invalid work ID returns a 404 error
+      - called with an invalid ID does not change the database array
+      - returns a 400 if a work ID with the wrong :minionId is requested
+    POST /api/minions/:minionId/work
+      - should add a new work item if all supplied information is correct
+    DELETE /api/minions/:minionId/work/:workId
+      - deletes the correct work by id
+      - called with a non-numeric minion ID returns a 404 error
+      - called with an invalid minion ID returns a 404 error
+      - called with a non-numeric work ID returns a 404 error
+      - called with an invalid work ID returns a 404 error
