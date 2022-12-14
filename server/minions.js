@@ -66,6 +66,13 @@ workRouter.get('/', (req, res, next) => {
     res.send(minionsWork);
 });
 
+workRouter.post('/', (req, res, next) => {
+    const added = addToDatabase('work', req.body);
+    if (added !== undefined && added !== null){
+        res.status(201).send(added);
+    }
+});
+
 workRouter.param('workId', (req, res, next, id) => {
     const foundWork = getFromDatabaseById('work', id);
     if (foundWork !== null && foundWork !== undefined){
@@ -75,7 +82,6 @@ workRouter.param('workId', (req, res, next, id) => {
         } else {
             next();
         }
-        
     } else {
         res.status(404).send();
     }
@@ -87,6 +93,16 @@ workRouter.put('/:workId', (req, res, next) => {
         res.send(newWork);
     } else {
         res.status(400).send();
+    }
+});
+
+
+workRouter.delete('/:workId', (req, res, next) => {
+    const deleted = deleteFromDatabasebyId('work', req.work.id);
+    if (deleted){
+        res.status(204).send();
+    } else {
+        res.status(500).send();
     }
 })
 
