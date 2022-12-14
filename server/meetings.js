@@ -28,4 +28,7 @@ mR.post('/', (req, res, next) => {
         }
 });
 
+mR.delete('/', (req, res, next) => {
+    res.status(204).send(deleteAllFromDatabase('meetings'));
+})
 module.exports = meetingsRouter;
