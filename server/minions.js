@@ -53,7 +53,41 @@ minR.delete('/:minionId', (req, res, next) => {
     } else {
         res.status(404).send();
     }
+});
+
+//BONUS
+const workRouter = express.Router({mergeParams: true});
+minR.use('/:minionId/work', workRouter);
+
+workRouter.get('/', (req, res, next) => {
+    const allWork = getAllFromDatabase('work');
+    // console.log(allWork);
+    const minionsWork = allWork.filter(work => work.id === req.minion.id)
+    res.send(minionsWork);
+});
+
+workRouter.param('workId', (req, res, next, id) => {
+    const foundWork = getFromDatabaseById('work', id);
+    if (foundWork !== null && foundWork !== undefined){
+        req.work = foundWork;
+        if (req.work.minionId !== req.minion.id){
+            res.status(400).send();
+        } else {
+            next();
+        }
+        
+    } else {
+        res.status(404).send();
+    }
 })
 
+workRouter.put('/:workId', (req, res, next) => {
+    const newWork = updateInstanceInDatabase('work', req.body);
+    if (newWork !== null){
+        res.send(newWork);
+    } else {
+        res.status(400).send();
+    }
+})
 
 module.exports = minionsRouter;
